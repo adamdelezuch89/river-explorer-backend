@@ -12,7 +12,14 @@ RUN apk add --update --no-cache --virtual \
     zlib \
     zlib-dev \
     linux-headers 
-
+    
+# Install system dependencies for gdal
+RUN apk add --update --no-cache \
+    gcc \
+    python3-dev \
+    gdal-dev \
+    geos-dev \
+    proj-dev
 
 COPY ./requirements.txt /tmp/requirements.txt
 
@@ -26,3 +33,5 @@ WORKDIR /app
 
 EXPOSE 8000
 
+# Set GDAL_LIBRARY_PATH environment variable
+ENV GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
